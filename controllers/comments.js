@@ -33,8 +33,8 @@ router.get('/', async (req, res) => {
 //user comment create route
 
 
-router.post('/', async (req, res) => {
-    const createdComment = await db.Comment.create(req.body)
+router.post('/', isAuthenticated, async (req, res) => {
+    const createdComment = await Comment.create(req.body)
     const token = req.headers.authorization
     const decoded = jwt.decode(token, config.jwtSecret)
     createdComment.user = decoded.id
