@@ -15,13 +15,13 @@ function isAuthenticated(req, res, next){
     }
 }
 
-// router.post('/', async (req, res) => {
-//     const createdComment = await Comment.create(req.body)
-//     res.json({
-//         comment: createdComment,
-//     })
+router.post('/', async (req, res) => {
+    const createdComment = await Comment.create(req.body)
+    res.json({
+        comment: createdComment,
+    })
     
-// })
+})
 
 // index route
 router.get('/', async (req, res) => {
