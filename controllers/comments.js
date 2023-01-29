@@ -15,25 +15,25 @@ function isAuthenticated(req, res, next){
     }
 }
 
-router.post('/', async (req, res) => {
-    const createdComment = await Comment.create(req.body)
-    res.json({
-        comment: createdComment,
-    })
+// router.post('/', async (req, res) => {
+//     const createdComment = await Comment.create(req.body)
+//     res.json({
+//         comment: createdComment,
+//     })
     
-})
+// })
 
 // index route
-router.get('/', async (req, res) => {
-    const allComments = await Comment.find({})
-    res.json(allComments)
-})
+// router.get('/', async (req, res) => {
+//     const allComments = await Comment.find({})
+//     res.json(allComments)
+// })
 
 
 //user comment create route
 
 
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
     const createdComment = await Comment.create(req.body)
     const token = req.headers.authorization
     const decoded = jwt.decode(token, config.jwtSecret)
@@ -45,11 +45,12 @@ router.post('/', async (req, res) => {
 
 
 //show user comment
-// router.get("/show", async (req, res) => {
-//     const token = req.headers.authorization
-//     const decoded = jwt.decode(token, config.jwtSecret)
-//     const comment = await db.Comment.findOne({"user": decoded.id})
-//     res.json(comment);
-// })
+router.get('/', async (req, res) => {
+    const token = req.headers.authorization
+    const decode = jwt.decode(token, config.jwtSecret)
+    const foundUser = await db.User.findById(decode.id)
+    const allComments = await Comment.find({ user: foundUser })
+    res.json(allComments)
+})
 
 module.exports = router
