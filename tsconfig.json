@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
+    "module": "commonjs",
     "lib": [
       "dom",
       "dom.iterable",
@@ -23,6 +24,7 @@
     "build",
   ],
   "ts-node": {
-    "transpileOnly": true
+    "swc": true
   }
 }
+
