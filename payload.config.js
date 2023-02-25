@@ -5,7 +5,7 @@ import Tags from './collections/Tags';
 import Users from './collections/Users';
 
 export default buildConfig({
-  serverURL: 'http://jockloc.herokuapp.com',
+  serverURL: 'http://localhost:5000',
   admin: {
     user: Users.slug,
   },
